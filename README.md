@@ -27,42 +27,39 @@ Automação de testes de API para a Swagger Petstore, validando fluxos críticos
 A arquitetura foi projetada para ser modular, escalável e de fácil manutenção, seguindo padrões de mercado para testes de API.
 
 ```mermaid
-graph TD
-    subgraph "Camada de Testes (JUnit 5)"
-        direction LR
-        T1[E2E Tests] --> F
-        T2[Consistency Tests] --> C
-        T3[Contract Tests] --> C
-    end
+flowchart TD
+  subgraph Camada_de_Testes_JUnit5
+    direction LR
+    T1[E2E Tests] --> F
+    T2[Consistency Tests] --> C
+    T3[Contract Tests] --> C
+  end
 
-    subgraph "Camada de Orquestração"
-        direction LR
-        F(PetFlow) --> C
-    end
+  subgraph Orquestração
+    direction LR
+    F[PetFlow] --> C
+  end
 
-    subgraph "Camada de Cliente HTTP"
-        direction LR
-        C(PetClient) --> I
-    end
+  subgraph Cliente_HTTP
+    direction LR
+    C[PetClient] --> I
+  end
 
-    subgraph "Camada de Dados"
-        direction LR
-        DF(DataFactory) --> T1
-        M[POJOs] --> DF
-    end
+  subgraph Dados
+    direction LR
+    DF[DataFactory] --> T1
+    M[POJOs] --> DF
+  end
 
-    subgraph "Infraestrutura & API"
-        I[RestAssured] --> A[API Real]
-    end
+  subgraph Infra_API
+    I[RestAssured] --> A[API Real]
+  end
 
-    subgraph "Observabilidade"
-        O1[Allure Reports] --> T1
-        O2[Logging (SLF4J)] --> I
-        O3[Metrics Listener] --> T1
-    end
-
-    style T1 fill:#cce5ff,stroke:#333,stroke-width:2px
-    style F fill:#d4edda,stroke:#333,stroke-width:2px
+  subgraph Observabilidade
+    O1[Allure Reports] --> T1
+    O2[Logging SLF4J] --> I
+    O3[Metrics Listener] --> T1
+  end
 ```
 
 - **Testes (JUnit 5):** Contêm a lógica de asserção e são divididos por tipo (E2E, Consistência, Contrato).
