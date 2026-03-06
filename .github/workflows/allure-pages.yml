@@ -1,0 +1,58 @@
+name: Allure Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 3 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+      - name: Checkout gh-pages (history)
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+          fetch-depth: 1
+      - name: Run tests (smoke)
+        if: github.event_name != 'schedule'
+        run: mvn -B -Pfast-checks test
+      - name: Run tests (regression nightly)
+        if: github.event_name == 'schedule'
+        run: mvn -B -Pregression test
+      - name: Bring previous Allure history
+        if: ${{ hashFiles('gh-pages/history/**') != '' }}
+        run: |
+          mkdir -p target/allure-results/history
+          cp -r gh-pages/history/* target/allure-results/history/ || true
+      - name: Generate Allure report
+        run: mvn -B allure:report
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: target/allure-report
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

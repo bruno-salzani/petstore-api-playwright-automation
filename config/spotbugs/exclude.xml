@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter xmlns="https://github.com/spotbugs/filter/3.0.0">
+    <Match>
+        <Package name="~com\.petstore\.api\..*"/>
+        <Bug code="UI,RCN,NP"/>
+    </Match>
+</FindBugsFilter>

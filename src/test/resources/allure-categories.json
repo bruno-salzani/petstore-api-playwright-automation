@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Falhas de Contrato",
+    "matchedStatuses": [
+      "failed"
+    ],
+    "messageRegex": ".*schema.*|.*contract.*|.*json.*"
+  },
+  {
+    "name": "Instabilidade da API",
+    "matchedStatuses": [
+      "broken"
+    ],
+    "messageRegex": ".*5\\d\\d.*|.*timeout.*|.*connection.*"
+  }
+]

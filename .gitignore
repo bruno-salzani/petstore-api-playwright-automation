@@ -1,0 +1,10 @@
+target/
+.idea/
+.vscode/
+.DS_Store
+*.iml
+allure-results/
+allure-report/
+*.log
+**/hs_err_pid*.log
+/.mvn/wrapper/maven-wrapper.jar
