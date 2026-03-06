@@ -5,6 +5,9 @@
 ![Stack](https://img.shields.io/badge/Stack-Java%2017%20%7C%20Maven-blue)
 ![Contratos](https://img.shields.io/badge/Contracts-WireMock-orange)
 ![Performance](https://img.shields.io/badge/Performance-Gatling-purple)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=bruno-salzani_petstore-api-restassured-java&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bruno-salzani_petstore-api-restassured-java)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bruno-salzani_petstore-api-restassured-java&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bruno-salzani_petstore-api-restassured-java)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=bruno-salzani_petstore-api-restassured-java&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=bruno-salzani_petstore-api-restassured-java)
 [![CI/CD Pipeline](https://github.com/bruno-salzani/petstore-api-restassured-java/actions/workflows/main.yml/badge.svg)](https://github.com/bruno-salzani/petstore-api-restassured-java/actions/workflows/main.yml)
 [![Allure Report](https://img.shields.io/badge/Allure-Report-ff69b4?logo=allure&logoColor=white)](https://bruno-salzani.github.io/petstore-api-restassured-java/)
 [![CodeQL](https://github.com/bruno-salzani/petstore-api-restassured-java/actions/workflows/codeql.yml/badge.svg)](https://github.com/bruno-salzani/petstore-api-restassured-java/actions/workflows/codeql.yml)
@@ -207,7 +210,16 @@ Nosso pipeline no GitHub Actions é a espinha dorsal da nossa estratégia de qua
 - [x] Governança (Dependabot, CODEOWNERS, SECURITY.md, templates).
 - [x] Testes de Contrato com WireMock (básicos e negativos).
 - [x] Testes de Performance com Gatling.
-- [ ] Integração com SonarCloud para um dashboard de qualidade centralizado.
+- [x] Integração com SonarCloud para um dashboard de qualidade centralizado.
+
+### Como habilitar SonarCloud
+
+1) No SonarCloud, crie a Organization e o Project vinculados ao repositório GitHub.  
+2) No repositório (Settings → Secrets and variables → Actions):
+- Secrets: adicione `SONAR_TOKEN` (token gerado no SonarCloud, escopo “Analyze projects”).
+- Variables: adicione `SONAR_ORG` (ex.: `bruno-salzani`) e `SONAR_PROJECT_KEY` (ex.: `bruno-salzani_petstore-api-restassured-java`).
+3) O workflow `.github/workflows/sonarcloud.yml` executa em pushes e PRs.  
+4) Acesse o dashboard em `https://sonarcloud.io/project/overview?id=<SONAR_PROJECT_KEY>`.
 
 ## Notas de Arquitetura Avançadas
 
