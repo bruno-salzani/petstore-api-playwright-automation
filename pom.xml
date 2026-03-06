@@ -334,7 +334,7 @@
                     <plugin>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-maven</artifactId>
-                        <version>1.15.0</version>
+                        <version>1.22.1</version>
                         <configuration>
                             <testPlugin>junit5</testPlugin>
                             <targetClasses>
