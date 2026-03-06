@@ -30,7 +30,7 @@ jobs:
         run: mvn -B -DskipTests=true org.owasp:dependency-check-maven:check
       - name: Upload Dependency Check report
         if: always() && matrix.os == 'ubuntu-latest' && matrix.java == 17 && matrix.profile == 'fast-checks'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dependency-check-report
           path: |
@@ -40,13 +40,13 @@ jobs:
         run: mvn -B -Pmock-tests test
       - name: Upload Surefire reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: surefire-reports-${{ matrix.os }}-java${{ matrix.java }}-${{ matrix.profile }}
           path: target/surefire-reports
       - name: Upload Allure results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: allure-results-${{ matrix.os }}-java${{ matrix.java }}-${{ matrix.profile }}
           path: target/allure-results
@@ -65,7 +65,7 @@ jobs:
           mvn -B allure:report
       - name: Upload Allure report (with history)
         if: always() && runner.os == 'Linux' && matrix.java == 17 && matrix.profile == 'regression'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: allure-report-with-history
           path: target/allure-report
